@@ -1,0 +1,99 @@
+<h2>User Form</h2>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()"  #f="ngForm" novalidate>
+  <div class="large-group">
+			<div class="small-group">
+				<label for="firstname">First Name</label>
+				<input class="userInput" id="firstname" type="text" formControlName="firstName" ng-required="true"/>
+			  <div *ngIf="userForm.controls['firstName'].invalid && (userForm.controls['firstName'].dirty || userForm.controls['firstName'].touched)" class="alert alert-danger">
+				<div *ngIf="userForm.controls['firstName'].errors.required">
+				  First name is required.
+				</div>
+			   </div>
+			</div>
+			
+			<div class="small-group">
+				<label for="lastname">Last Name</label>
+				<input class="userInput" for="lastname" type="text" formControlName="lastName"/>
+				
+            </div>
+            
+			<div class="small-group">
+				<label for="city">City</label>
+				<input class="userInput" id="city" for="cityName" type="text" formControlName="city" ng-required="true"/>
+				<div *ngIf="userForm.controls['city'].invalid && (userForm.controls['city'].dirty || userForm.controls['city'].touched)" class="alert alert-danger">
+					<div *ngIf="userForm.controls['city'].errors.required">
+					 	City is required.
+					</div>
+				</div>
+            </div>
+            
+            
+            
+            <div class="small-group">
+				<label for="gender" id="gender"> Gender: </label>
+                    <div class="box"><ul>
+                        <li><input  type="radio" formControlName ="gender" name="gender" value="male"><label>Male</label></li>
+                        
+                        <li> <input type="radio" formControlName ="gender"  name="gender" value="female"> <label>Female</label></li>
+					</ul> </div>
+					<div *ngIf="userForm.controls['gender'].invalid && (userForm.controls['gender'].dirty || userForm.controls['gender'].touched)" class="alert alert-danger">
+						<div *ngIf="userForm.controls['gender'].errors.required">
+							 Gender is required.
+						</div>
+					</div>
+			</div>
+            <div class="small-group">
+				<label for="technology">Any technology preferences</label>
+				<select formControlName="tech">
+          <option *ngFor="let tech of technologies" [value]="tech">{{tech}}</option>
+        </select>
+            </div>
+			<div class="small-group">
+				 <label for="checkbox" id="checkbox-label">What would you like: </label>
+                <div class="box">
+							<ul id="work-pref-list">
+							<label formArrayName="jobTypes" *ngFor="let jobType of userForm.controls.jobTypes.controls; let i = index">
+									<li><input type="checkbox" [formControlName]="i"> {{jobTypes[i].name}} </li>
+									
+								  </label></ul>
+								  	
+							</div>
+
+			</div>
+			
+			<div class="small-group">
+				<label for="email">Email</label>
+				<input class="userInput" id="email" type="email" ng-model="user.email" formControlName="email"/>
+				<div *ngIf="userForm.controls['email'].invalid && (userForm.controls['email'].dirty || userForm.controls['email'].touched)" class="alert alert-danger">
+					<div *ngIf="userForm.controls['email'].errors.required">
+						 email is required.
+					</div>
+					<div *ngIf="userForm.controls['email'].errors.pattern">
+							The email address must contain at least the @ character
+					</div>
+				</div>
+			</div>
+			
+			<div class="small-group">
+				<label for="phonenumber">Phone Number</label>
+				<input class="userInput" id="phonenumber" type="tel" formControlName="phoneNumber"/>
+				<div *ngIf="userForm.controls['phoneNumber'].invalid && (userForm.controls['phoneNumber'].dirty || userForm.controls['phoneNumber'].touched)" class="alert alert-danger">
+						
+					<div *ngIf="userForm.controls['phoneNumber'].errors.required">
+						 phoneNumber is required.
+					</div>
+					<div *ngIf="userForm.controls['phoneNumber'].errors.pattern">
+							It should only contains numbers
+					</div>
+				</div>
+			</div>
+			
+			<div class="textarea-div">
+				<label for="message">Message</label>
+				<textarea id="message" type="text" formControlName="message"></textarea>
+			</div>
+			
+			 <input  class="btn btn-success" type="submit" name="submit" [disabled]="userForm.pristine || userForm.invalid"/>
+        	<input type="reset" class="btn reset" name="Revert" (click)="revert()" [disabled]="userForm.pristine" /> 
+		</div>
+</form>
