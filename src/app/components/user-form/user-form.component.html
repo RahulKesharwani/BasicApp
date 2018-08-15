@@ -45,9 +45,11 @@
             <div class="small-group">
 				<label for="technology">Any technology preferences</label>
 				<select formControlName="tech">
-          <option *ngFor="let tech of technologies" [value]="tech">{{tech}}</option>
+          <option *ngFor="let tech of technologies;let i = index" [value]="tech">{{tech}}</option>
         </select>
             </div>
+
+          
 			<div class="small-group">
 				 <label for="checkbox" id="checkbox-label">What would you like: </label>
                 <div class="box">
